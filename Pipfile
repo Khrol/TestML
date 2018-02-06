@@ -13,6 +13,7 @@ scipy = "*"
 matplotlib = "*"
 flask = "*"
 "flask-restful" = "*"
+rise = "*"
 
 
 [dev-packages]

@@ -10,6 +10,8 @@ $ pipenv shell
 $ jupyter notebook
 ```
 
+[Presentation Engine](https://damianavila.github.io/RISE/)
+
 # Sample request
 
 ```bash

@@ -16,6 +16,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+# ## Read data from csv
+
 # In[ ]:
 
 
@@ -23,6 +25,9 @@ data = pd.read_csv('./data/passenger_info.csv')
 
 data.columns
 
+
+# 
+# ## Create some baseline
 
 # In[ ]:
 
