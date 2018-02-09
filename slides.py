@@ -95,7 +95,7 @@ import matplotlib.pyplot as plt
 # In[ ]:
 
 
-data = pd.read_csv('./data/passenger_info.csv')
+data = pd.read_csv('./data/passengers_info.csv')
 
 
 # In[ ]:
