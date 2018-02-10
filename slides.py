@@ -39,8 +39,6 @@
 #   <div style="float: left; width: 50%;">
 # ![Star repo](images/star_video.gif)
 #     </div>
-# 
-# 
 
 # <div style="float: left; width: 50%;">
 # <h1>План</h1>
@@ -223,7 +221,7 @@ roc_auc
 
 
 init_plt()
-plt.plot(fpr, tpr, color='darkorange', lw=lw, label='ROC curve (area = %0.4f)' % roc_auc)
+plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.4f)' % roc_auc)
 plt.legend(loc="lower right")
 plt.show()
 
@@ -299,16 +297,15 @@ y_predicted = reg.predict(X_test)
 
 fpr_full, tpr_full, _ = metrics.roc_curve(y_test, y_predicted)
 roc_auc_full = metrics.auc(fpr_full, tpr_full)
+roc_auc_full
 
 
 # In[ ]:
 
 
 init_plt()
-plt.plot(fpr, tpr, color='darkorange',
-         lw=lw, label='ROC curve (area = %0.4f)' % roc_auc)
-plt.plot(fpr_full, tpr_full, color='red',
-         lw=lw, label='ROC curve (area = %0.4f)' % roc_auc_full)
+plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.4f)' % roc_auc)
+plt.plot(fpr_full, tpr_full, color='red', lw=2, label='ROC curve (area = %0.4f)' % roc_auc_full)
 plt.legend(loc="lower right")
 plt.show()
 
@@ -318,7 +315,8 @@ plt.show()
 # In[ ]:
 
 
-sorted_features = list(sorted(zip(features_dataframe.columns, reg.coef_), key=lambda x: -abs(x[1])))
+sorted_features = list(sorted(zip(features_dataframe.columns, reg.coef_),
+                              key=lambda x: -abs(x[1])))
 sorted_features
 
 
@@ -361,15 +359,16 @@ y_predicted = reg.predict(X_test)
 
 fpr_part, tpr_part, thresholds = metrics.roc_curve(y_test, y_predicted)
 roc_auc_part = metrics.auc(fpr_part, tpr_part)
+roc_auc_part
 
 
 # In[ ]:
 
 
 init_plt()
-plt.plot(fpr, tpr, color='darkorange', lw=lw, label='ROC curve (area = %0.4f)' % roc_auc)
-plt.plot(fpr_full, tpr_full, color='red', lw=lw, label='ROC curve (area = %0.4f)' % roc_auc_full)
-plt.plot(fpr_part, tpr_part, color='green', lw=lw, label='ROC curve (area = %0.4f)' % roc_auc_part)
+plt.plot(fpr, tpr, color='darkorange', lw=2, label='ROC curve (area = %0.4f)' % roc_auc)
+plt.plot(fpr_full, tpr_full, color='red', lw=2, label='ROC curve (area = %0.4f)' % roc_auc_full)
+plt.plot(fpr_part, tpr_part, color='green', lw=2, label='ROC curve (area = %0.4f)' % roc_auc_part)
 plt.legend(loc="lower right")
 plt.show()
 
@@ -392,6 +391,10 @@ for i in range(1, len(fpr_part)):
 
 
 # # II. Development
+# 
+# ![development](images/development.jpg)
+
+# # Сохраняем модель
 
 # In[ ]:
 
@@ -399,4 +402,38 @@ for i in range(1, len(fpr_part)):
 joblib.dump(reg, 'model.pkl')
 
 
+# ![demo](images/demo.png)
+
+# # Сравниваем с Research
+
 # # III. Production
+# 
+# ![production](images/production.jpg)
+
+# <div style="float: left; width: 60%;">
+# <h1>Воспроизводимость<br/> логов</h1>
+# 
+# </div>
+#   <div style="float: left; width: 40%; height: 600px;">
+#   <img src='images/repeat_logs.jpg' style="max-height: 100%;"/>
+#     </div>
+
+# # Устаревание модели
+# 
+# ![ships](images/ships.png)
+
+# # Другие материалы
+# 
+# - [https://www.youtube.com/watch?v=T_YWBGApUgs&t=21524s](https://www.youtube.com/watch?v=T_YWBGApUgs&t=21524s)
+# - [https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf](https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf)
+
+# <div style="float: left; width: 70%;">
+# <h1>Спасибо за внимание!<br/>Вопросы?<br/></h1>
+# <h2>Игорь Хрол</h2>
+# <h2>[khroliz@gmail.com](khroliz@gmail.com)</h2>
+# <h2>[https://github.com/Khrol/TestML](https://github.com/Khrol/TestML)</h2>
+# 
+# </div>
+#   <div style="float: left; width: 30%; height: 600px;">
+#   <img src='images/question.png' style="max-height: 100%;"/>
+#     </div>
