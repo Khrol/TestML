@@ -31,7 +31,7 @@
 
 # # Где скачать?
 # 
-# [https://github.com/Khrol/TestML](https://github.com/Khrol/TestML)
+# [github.com/Khrol/TestML](https://github.com/Khrol/TestML)
 # 
 #   <div style="float: left; width: 50%;">
 # ![QR code](images/repo_qr.jpg)      
@@ -190,9 +190,15 @@ y_predicted
 
 # # Оценка результата
 # 
-# ## Кривая ошибок
 # 
+# 
+#   <div style="float: left; width: 50%;">
+# <h2>Кривая ошибок</h2>
+# </div>
+#   <div style="float: left; width: 50%;">
 # ![roc](images/roc_curves.png)
+# </div>
+# 
 
 # # Оценка результата
 
@@ -381,6 +387,8 @@ plt.show()
 fpr_part, tpr_part, thresholds
 
 
+# # Выбор threshold
+
 # In[ ]:
 
 
@@ -406,6 +414,29 @@ joblib.dump(reg, 'model.pkl')
 
 # # Сравниваем с Research
 
+# In[ ]:
+
+
+import requests
+import json
+
+all_predicted_y = reg.predict(X)
+EPS = 0.000001
+
+def test_record(record):
+    id = record['PassengerId']
+    actual_result = requests.post('http://localhost:5000/classify',
+                    headers={'Content-Type': 'application/json'}, 
+                    data=json.dumps({'sex': record['Sex'], 'sib_sp': record['SibSp'], 'age': record['Age'],
+                                   'ticket_class': record['Pclass'], 'embarked': record['Embarked']}))
+    actual_score = json.loads(actual_result.content.decode('UTF-8'))['score']
+    expected_score = all_predicted_y[id - 1]
+    print(record['PassengerId'], expected_score, actual_score)
+    assert abs(expected_score - actual_score) < EPS
+
+data.sample(10).apply(test_record, axis=1)
+
+
 # # III. Production
 # 
 # ![production](images/production.jpg)
@@ -426,12 +457,14 @@ joblib.dump(reg, 'model.pkl')
 # 
 # - [https://www.youtube.com/watch?v=T_YWBGApUgs&t=21524s](https://www.youtube.com/watch?v=T_YWBGApUgs&t=21524s)
 # - [https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf](https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf)
+# - ссылка на kaggle
+# - ссылка на ODS Slack
 
 # <div style="float: left; width: 70%;">
 # <h1>Спасибо за внимание!<br/>Вопросы?<br/></h1>
 # <h2>Игорь Хрол</h2>
 # <h2>[khroliz@gmail.com](khroliz@gmail.com)</h2>
-# <h2>[https://github.com/Khrol/TestML](https://github.com/Khrol/TestML)</h2>
+# <h2>[github.com/Khrol/TestML](https://github.com/Khrol/TestML)</h2>
 # 
 # </div>
 #   <div style="float: left; width: 30%; height: 600px;">

@@ -15,6 +15,7 @@ flask = "*"
 "flask-restful" = "*"
 rise = "*"
 pytest = "*"
+requests = "*"
 
 
 [dev-packages]
