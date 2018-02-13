@@ -40,6 +40,14 @@
 # ![Star repo](images/star_video.gif)
 #     </div>
 
+# ![joke](images/joke.jpg)
+
+# In[ ]:
+
+
+print('Hello, World!')
+
+
 # <div style="float: left; width: 50%;">
 # <h1>План</h1>
 # 
@@ -132,6 +140,7 @@ levels
 
 
 features_dataframe['known_age'] = data.Age.notnull().astype(int)
+features_dataframe
 
 
 # ## Обучающие и тестовые выборки
@@ -172,6 +181,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random
 
 reg = linear_model.LinearRegression()
 reg.fit(X_train, y_train)
+reg.coef_
 
 
 # # Оценка результата
@@ -192,10 +202,19 @@ y_predicted
 # 
 # 
 # 
-#   <div style="float: left; width: 50%;">
+#   <div style="float: left; width: 60%;">
 # <h2>Кривая ошибок</h2>
+# <ol>
+#     <li>TP (True Positives)</li>
+#     <li>TN (True Negatives)</li>
+#     <li>FN (False Negatives)</li>
+#     <li>FP (False Positives)</li>
+# </ol>
+#     $$TPR = \frac{TP}{TP + FN}$$
+#     <br/>
+#     $$FPR = \frac{FP}{TN + FP}$$
 # </div>
-#   <div style="float: left; width: 50%;">
+#   <div style="float: left; width: 40%;">
 # ![roc](images/roc_curves.png)
 # </div>
 # 
