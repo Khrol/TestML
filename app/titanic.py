@@ -9,6 +9,7 @@ class TitanicSurvival(Resource):
         self.parser.add_argument('age', type=float, required=False)
         self.parser.add_argument('sib_sp', type=int, required=True)
         self.parser.add_argument('ticket_class', type=int, required=True)
+        self.parser.add_argument('parch', type=int, required=True)
         self.parser.add_argument('embarked', type=str, required=True)
         super(TitanicSurvival, self).__init__()
 

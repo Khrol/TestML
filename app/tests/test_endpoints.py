@@ -17,8 +17,8 @@ def test_classifier():
     client = flask_app.test_client()
     r = client.post('/classify',
                     content_type='application/json',
-                    data='{"sex": "male", "sib_sp": 3, "ticket_class": 2, "embarked": "S"}')
+                    data='{"sex": "female", "sib_sp": 3, "ticket_class": 1, "embarked": "S", "parch": 2}')
     assert r.status_code == 200
     data = json.loads(r.data.decode('utf-8'))
     assert data['value']
-    assert abs(data['score'] - 0.574417) < EPS
+    assert abs(data['score'] - 0.86216) < EPS

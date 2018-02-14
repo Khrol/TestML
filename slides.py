@@ -163,13 +163,17 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random
 (len(X), len(X_train), len(X_test))
 
 
-# ## Линейная регрессия
 # 
-# <br/>
 #   <div style="float: left; width: 50%;">
-# $$y = f(\vec{w}\cdot\vec{x}) = f\left(\sum_j w_j x_j\right)$$  </div>
+#   <h2>Логистическая регрессия</h2>
+#   <br/>
+# $$y = f(\vec{w}\cdot\vec{x}) = f\left(\sum_j w_j x_j\right)$$  
+# </br>
+# $$f(t)=\frac{1}{1+e^{-t}} $$
+# </div>
 #   <div style="float: left; width: 50%;">
 # ![perseptron](images/perceptron.png)
+# ![logistic_curve](images/logistic_curve.png)
 # </div>
 # 
 # 
@@ -179,7 +183,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random
 # In[ ]:
 
 
-reg = linear_model.LinearRegression()
+reg = linear_model.LogisticRegression()
 reg.fit(X_train, y_train)
 reg.coef_
 
@@ -189,7 +193,7 @@ reg.coef_
 # In[ ]:
 
 
-y_predicted = reg.predict(X_test)
+y_predicted = reg.predict_proba(X_test).T[1]
 
 
 # In[ ]:
@@ -283,6 +287,10 @@ for emb in ['C', 'Q', 'S']:
     name = 'embarked{}'.format(emb)
     features_dataframe[name] = (data.Embarked == emb).astype(int) 
     
+for parch in [0, 1, 2]:
+    name = 'parch{}'.format(parch)
+    features_dataframe[name] = (data.Parch == parch).astype(int) 
+    
 for age in [10, 20, 30, 40, 50, 60, 70]:
     name = 'more_{}_years'.format(age)
     features_dataframe[name] = (data['Age'] >= age).astype(int)
@@ -307,14 +315,14 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random
 # In[ ]:
 
 
-reg = linear_model.LinearRegression()
+reg = linear_model.LogisticRegression()
 reg.fit(X_train, y_train)
 
 
 # In[ ]:
 
 
-y_predicted = reg.predict(X_test)
+y_predicted = reg.predict_proba(X_test).T[1]
 
 
 # In[ ]:
@@ -340,17 +348,17 @@ plt.show()
 # In[ ]:
 
 
-sorted_features = list(sorted(zip(features_dataframe.columns, reg.coef_),
+sorted_features = list(sorted(zip(features_dataframe.columns, reg.coef_[0]),
                               key=lambda x: -abs(x[1])))
 sorted_features
 
 
-# # Пересматриваем модель на 8-ми признаках
+# # Пересматриваем модель на 10-ми признаках
 
 # In[ ]:
 
 
-features_part = list(map(lambda x: x[0], sorted_features[:8]))
+features_part = list(map(lambda x: x[0], sorted_features[:10]))
 features_part
 
 
@@ -365,18 +373,18 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random
 # In[ ]:
 
 
-reg = linear_model.LinearRegression()
+reg = linear_model.LogisticRegression()
 reg.fit(X_train, y_train)
 
 reg.coef_
 
 
-# # Пересматриваем модель на 8-ми признаках
+# # Пересматриваем модель на 10-ми признаках
 
 # In[ ]:
 
 
-y_predicted = reg.predict(X_test)
+y_predicted = reg.predict_proba(X_test).T[1]
 
 
 # In[ ]:
@@ -439,7 +447,7 @@ joblib.dump(reg, 'model.pkl')
 import requests
 import json
 
-all_predicted_y = reg.predict(X)
+all_predicted_y = reg.predict_proba(X).T[1]
 EPS = 0.000001
 
 def test_record(record):
@@ -447,7 +455,8 @@ def test_record(record):
     actual_result = requests.post('http://localhost:5000/classify',
                     headers={'Content-Type': 'application/json'}, 
                     data=json.dumps({'sex': record['Sex'], 'sib_sp': record['SibSp'], 'age': record['Age'],
-                                   'ticket_class': record['Pclass'], 'embarked': record['Embarked']}))
+                                   'ticket_class': record['Pclass'], 'parch': record['Parch'], 
+                                   'embarked': record['Embarked']}))
     actual_score = actual_result.json()['score']
     expected_score = all_predicted_y[id - 1]
     print(record['PassengerId'], expected_score, actual_score)
