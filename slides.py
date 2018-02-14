@@ -448,7 +448,7 @@ def test_record(record):
                     headers={'Content-Type': 'application/json'}, 
                     data=json.dumps({'sex': record['Sex'], 'sib_sp': record['SibSp'], 'age': record['Age'],
                                    'ticket_class': record['Pclass'], 'embarked': record['Embarked']}))
-    actual_score = json.loads(actual_result.content.decode('UTF-8'))['score']
+    actual_score = actual_result.json()['score']
     expected_score = all_predicted_y[id - 1]
     print(record['PassengerId'], expected_score, actual_score)
     assert abs(expected_score - actual_score) < EPS
@@ -474,10 +474,10 @@ data.sample(10).apply(test_record, axis=1)
 
 # # Другие материалы
 # 
-# - [https://www.youtube.com/watch?v=T_YWBGApUgs&t=21524s](https://www.youtube.com/watch?v=T_YWBGApUgs&t=21524s)
-# - [https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf](https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf)
-# - ссылка на kaggle
-# - ссылка на ODS Slack
+# - [www.youtube.com/watch?v=T_YWBGApUgs&t=21524s](https://www.youtube.com/watch?v=T_YWBGApUgs&t=21524s)
+# - [www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf](https://www.eecs.tufts.edu/~dsculley/papers/ml_test_score.pdf)
+# - [kaggle.com](http://kaggle.com/)
+# - [ods.ai](http://ods.ai/)
 
 # <div style="float: left; width: 70%;">
 # <h1>Спасибо за внимание!<br/>Вопросы?<br/></h1>

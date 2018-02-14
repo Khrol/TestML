@@ -69,7 +69,5 @@ class PassengerData(namedtuple('Data', ['sex', 'age', 'sib_sp', 'ticket_class', 
 
 
 def classify(passenger_data):
-    input_data = passenger_data.to_features()  # DEBUG
     score = float(clf.predict(passenger_data.to_features())[0])
-    print(input_data, score)  # DEBUG
     return {'value': score > THRESHOLD, 'score': score}
