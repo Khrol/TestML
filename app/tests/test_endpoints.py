@@ -21,4 +21,4 @@ def test_classifier():
     assert r.status_code == 200
     data = json.loads(r.data.decode('utf-8'))
     assert data['value']
-    assert abs(data['score'] - 0.86216) < EPS
+    assert abs(data['score'] - 0.5633669) < EPS

@@ -45,7 +45,7 @@
 # In[ ]:
 
 
-print('Hello, World!')
+42-41
 
 
 # <div style="float: left; width: 50%;">
@@ -128,12 +128,6 @@ features_dataframe = pd.DataFrame()
 
 array, levels = pd.factorize(data.Sex)
 features_dataframe['factorized_sex'] = array
-
-
-# In[ ]:
-
-
-levels
 
 
 # In[ ]:

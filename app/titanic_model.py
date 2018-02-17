@@ -53,8 +53,8 @@ class PassengerData(namedtuple('Data', ['sex', 'age', 'sib_sp', 'ticket_class', 
            factorized_sex  class1  sib_sp_4  known_age  sib_sp_3  more_10_years  \\
         0               1       1         1          1         0              0   
         <BLANKLINE>
-           class2  embarkedS  more_40_years  parch2  
-        0       0          1              0       1  
+           embarkedS  class2  more_40_years  parch2  
+        0          1       0              0       1  
         """
         return pd.DataFrame.from_items((
             ('factorized_sex', self._calc_categorial('sex', 'female')),
